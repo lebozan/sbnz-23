@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../PoE-helper-backend/PoE-helper-backend.iml" filepath="$PROJECT_DIR$/../PoE-helper-backend/PoE-helper-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/poe-helper-kjar.iml" filepath="$PROJECT_DIR$/poe-helper-kjar.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,12 @@
+package rules;
+
+import ftn.sbzn.PoEhelperbackend.model.Tag;
+
+
+rule "- fire resistance"
+when
+	Tag( name == "fire" )
+then
+
+end	
+

@@ -1,0 +1,27 @@
+
+<ng-container>
+  <img src="assets/poe-slots-test.png" usemap="#image-map" class="slots-img">
+
+  <!--  <div [ngClass]="[ isSelected ? 'selected-area' : 'not-selected-area']" (click)="selected('mainhand')" id="mainhand"></div>-->
+  <button mat-raised-button color="primary">Primary</button>
+  <!--  <mat-button-toggle class="gloves-toggle" value="bold">Main Hand</mat-button-toggle>-->
+</ng-container>
+
+<div *ngFor="let item in selectedEquipment">
+  <button mat-raised-button > {{item}}</button>
+</div>
+
+<map name="image-map">
+  <area target="" alt="main-hand" title="main-hand" coords="223,411,42,50" href="javascript:void(0)" shape="rect" (click)="selected('mainhand')">
+  <area target="" alt="gloves" title="gloves" coords="178,447,351,618" href="javascript:void(0)" shape="rect" (click)="selected('gloves')">
+  <area target="" alt="belt" title="belt" coords="407,541,578,617" href="javascript:void(0)" shape="rect" (click)="selected('belt')">
+  <area target="" alt="ring1" title="ring1" coords="272,330,351,409" href="javascript:void(0)" shape="rect" (click)="selected('ring1')">
+  <area target="" alt="ring2" title="ring2" coords="633,330,713,409" href="javascript:void(0)" shape="rect" (click)="selected('ring2')">
+  <area target="" alt="helmet" title="helmet" coords="401,30,582,208" href="javascript:void(0)" shape="rect" (click)="selected('helmet')">
+  <area target="" alt="boots" title="boots" coords="630,447,806,618" href="javascript:void(0)" shape="rect" (click)="selected('boots')">
+  <area target="" alt="amulet" title="amulet" coords="630,216,721,302" href="javascript:void(0)" shape="rect" (click)="selected('amulet')">
+  <area target="" alt="off-hand" title="off-hand" coords="764,54,945,414" href="javascript:void(0)" shape="rect" (click)="selected('offhand')">
+  <area target="" alt="body-armour" title="body-armour" coords="405,238,582,509" href="javascript:void(0)" shape="rect" (click)="selected('body armour')">
+</map>
+
+

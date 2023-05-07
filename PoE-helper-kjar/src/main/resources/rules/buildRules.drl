@@ -1,0 +1,100 @@
+import ftn.sbzn.PoEhelperbackend.model.Tag;
+import ftn.sbzn.PoEhelperbackend.model.Build;
+import java.util.Set;
+
+rule "Collect all tags"
+salience 1
+agenda-group "build"
+when
+   $tags: Set()
+        from accumulate( Tag( $n: name),
+        collectSet( $n )
+   );
+   $b: Build()
+then
+    $b.setTags($tags);
+    update($b);
+end
+
+rule "Bleed damage type"
+salience 10
+agenda-group "build"
+when
+    not (Tag( name == "Elemental" ))
+    not (Tag( name == "Chaos"))
+    Tag(name == "Physical")
+    Tag(name == "Duration")
+    $b: Build()
+then
+    $b.setDamageType("Bleed");
+    update($b);
+end
+
+rule "Poison damage type"
+salience 10
+agenda-group "build"
+when
+    Tag( name == "Chaos")
+    Tag(name == "Duration")
+    $b: Build()
+then
+    $b.setDamageType("Poison");
+    update($b);
+end
+
+rule "Fire damage type"
+salience 10
+agenda-group "build"
+when
+    Tag(name == "Fire")
+    $b: Build()
+then
+    $b.setDamageType("Fire");
+    update($b);
+end
+
+
+rule "Cold damage type"
+salience 10
+agenda-group "build"
+when
+    Tag( name == "Cold")
+    $b: Build()
+then
+    $b.setDamageType("Cold");
+    update($b);
+end
+
+
+rule "Lightning damage type"
+salience 10
+agenda-group "build"
+when
+    Tag( name == "Lightning")
+    $b: Build()
+then
+    $b.setDamageType("Lightning");
+    update($b);
+end
+
+rule "Physical damage type"
+salience 20
+agenda-group "build"
+when
+    Tag( name == "Physical")
+    $b: Build()
+then
+    $b.setDamageType("Physical");
+    update($b);
+end
+
+
+rule "Ailment tag"
+salience 10
+agenda-group "build"
+when
+    Tag(name == "Physical" || name == "Cold" || name == "Fire" || name == "Chaos")
+    Tag(name == "Duration")
+then
+    insert(new Tag("Ailment"));
+end

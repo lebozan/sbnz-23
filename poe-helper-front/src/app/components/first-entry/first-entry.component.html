@@ -1,0 +1,47 @@
+<form [formGroup]="form" class="firstEntryForm">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Weapon type</mat-label>
+    <mat-select formControlName="selectedWeapon">
+      <mat-option value="0">Wand</mat-option>
+      <mat-option value="1">One-Hand Mace</mat-option>
+      <mat-option value="2">One-Hand Sword</mat-option>
+      <mat-option value="3">One-Hand Axe</mat-option>
+      <mat-option value="4">Staff</mat-option>
+      <mat-option value="5">Two-Hand Mace</mat-option>
+      <mat-option value="6">Two-Hand Sword</mat-option>
+      <mat-option value="7">Two-Hand Axe</mat-option>
+      <mat-option value="8">Scepter</mat-option>
+      <mat-option value="9">Dagger</mat-option>
+      <mat-option value="10">Bow and Quiver</mat-option>
+      <mat-option value="11">Shield</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Active Skill Gems</mat-label>
+    <mat-select formControlName="selectedActiveGems">
+      <ng-container *ngFor="let gem of activeGemsList">
+        <mat-option [value]="gem.name">{{gem.name}}</mat-option>
+      </ng-container>
+
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Support Skill Gems</mat-label>
+    <mat-select formControlName="selectedSupportGems" multiple>
+      <mat-option *ngFor="let gem of supportGemsList" [value]="gem.name">{{gem.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Keystone</mat-label>
+    <mat-select formControlName="selectedKeystones" multiple>
+      <mat-option *ngFor="let key of keystonesList" [value]="key.name">{{key.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="accent" (click)="submit()" [disabled]="form.invalid">Submit</button>
+</form>
+
