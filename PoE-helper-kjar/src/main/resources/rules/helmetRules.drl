@@ -1,12 +1,22 @@
-package rules;
-
 import ftn.sbzn.PoEhelperbackend.model.Tag;
+import ftn.sbzn.PoEhelperbackend.model.Build;
+import java.util.Set;
+import ftn.sbzn.PoEhelperbackend.model.Mods;
+import ftn.sbzn.PoEhelperbackend.model.ModList;
+import ftn.sbzn.PoEhelperbackend.model.Mod;
+import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 
-rule "- fire resistance"
+
+rule "fire mods helm"
+agenda-group "build"
 when
-	Tag( name == "fire" )
+    $mods: Mods()
+    $hmods: ModList() from $mods.helmetMods
+	Tag( name == "Fire" )
+	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
+	$pref: ModList(prefixes.size() < 3) from $currentMods
 then
-
+    System.out.println("test");
 end	
 

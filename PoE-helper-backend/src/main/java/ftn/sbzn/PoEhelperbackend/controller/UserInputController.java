@@ -3,14 +3,8 @@ package ftn.sbzn.PoEhelperbackend.controller;
 import ftn.sbzn.PoEhelperbackend.dto.FirstEntryDTO;
 import ftn.sbzn.PoEhelperbackend.dto.KeystonesDataDTO;
 import ftn.sbzn.PoEhelperbackend.dto.SecondEntryDTO;
-import ftn.sbzn.PoEhelperbackend.model.Build;
-import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
-import ftn.sbzn.PoEhelperbackend.model.SkillGem;
-import ftn.sbzn.PoEhelperbackend.model.Tag;
-import ftn.sbzn.PoEhelperbackend.service.BuildService;
-import ftn.sbzn.PoEhelperbackend.service.KeystoneService;
-import ftn.sbzn.PoEhelperbackend.service.SequenceGeneratorService;
-import ftn.sbzn.PoEhelperbackend.service.SkillGemService;
+import ftn.sbzn.PoEhelperbackend.model.*;
+import ftn.sbzn.PoEhelperbackend.service.*;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.AgendaFilter;
@@ -30,19 +24,22 @@ import java.util.Optional;
 public class UserInputController {
 
     @Autowired
-    SkillGemService skillGemService;
+    private SkillGemService skillGemService;
 
     @Autowired
     private KieContainer kieContainer;
 
     @Autowired
-    SequenceGeneratorService sequenceGeneratorService;
+    private SequenceGeneratorService sequenceGeneratorService;
 
     @Autowired
-    BuildService buildService;
+    private BuildService buildService;
 
     @Autowired
-    KeystoneService keystoneService;
+    private KeystoneService keystoneService;
+
+    @Autowired
+    private ModsService modsService;
 
 
     @PostMapping(value = "/firstEntry")
@@ -129,6 +126,8 @@ public class UserInputController {
         kieSession.insert(itemRecommendations);
         Build b = build.get();
         kieSession.insert(b);
+        Mods mods = modsService.getAllMods();
+        kieSession.insert(mods);
         kieSession.fireAllRules();
         return new ResponseEntity<>(itemRecommendations, HttpStatus.OK);
     }

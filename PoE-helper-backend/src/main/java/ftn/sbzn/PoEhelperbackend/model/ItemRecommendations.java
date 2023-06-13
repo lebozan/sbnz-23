@@ -10,27 +10,26 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class ItemRecommendations {
-    private boolean helmetSelected;
-    private boolean bodyArmourSelected;
-    private boolean glovesSelected;
-    private boolean bootsSelected;
-    private boolean ring1Selected;
-    private boolean ring2Selected;
-    private boolean amuletSelected;
-    private boolean beltSelected;
-    private boolean mainHandSelected;
-    private boolean offHandSelected;
+    public boolean helmetSelected;
+    public boolean bodyArmourSelected;
+    public boolean glovesSelected;
+    public boolean bootsSelected;
+    public boolean ring1Selected;
+    public boolean ring2Selected;
+    public boolean amuletSelected;
+    public boolean beltSelected;
+    public boolean mainHandSelected;
+    public boolean offHandSelected;
 
-    private List<String> helmetMods;
-    private List<String> bodyArmourMods;
-    private List<String> glovesMods;
-    private List<String> bootsMods;
-    private List<String> ring1Mods;
-    private List<String> ring2Mods;
-    private List<String> amuletMods;
-    private List<String> beltMods;
-    private List<String> mainHandMods;
-    private List<String> offHandMods;
+    public List<ModList> quiverMods;
+    public List<ModList> amuletMods;
+    public List<ModList> ringMods;
+    public List<ModList> beltMods;
+    public List<ModList> shieldMods;
+    public List<ModList> helmetMods;
+    public List<ModList> bootsMods;
+    public List<ModList> glovesMods;
+    public List<ModList> bodyMods;
 
     public ItemRecommendations() {
         this.helmetSelected = false;

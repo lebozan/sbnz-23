@@ -1,34 +1,32 @@
-package ftn.sbzn.PoEhelperbackend.buildTests;
+package ftn.sbzn.PoEhelperbackend.controller;
 
 import ftn.sbzn.PoEhelperbackend.model.Build;
 import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 import ftn.sbzn.PoEhelperbackend.model.Mods;
 import ftn.sbzn.PoEhelperbackend.model.Tag;
 import ftn.sbzn.PoEhelperbackend.service.ModsService;
-import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.AgendaFilter;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+@RestController
+@RequestMapping(value = "/api/test")
+public class TestController {
 
-@SpringBootTest
-@ExtendWith(MockitoExtension.class)
-public class BuildRuleUnitTests {
 
-    @InjectMocks
-    private ModsService modsService = new ModsService();
+    @Autowired
+    private ModsService modsService;
 
-    @Test
-    public void collectAllTags() {
+    @GetMapping(value = "/t1")
+    public ResponseEntity<Object> test() {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("sbnz.projekat", "poe-helper-kjar", "0.0.1-SNAPSHOT"));
         KieScanner kScanner = ks.newKieScanner(kContainer);
@@ -54,7 +52,6 @@ public class BuildRuleUnitTests {
 //        session.getAgenda().getAgendaGroup("build").setFocus();
         long count = session.fireAllRules();
 
-//        assertNotNull(b.getTags());
-        assertEquals(1L, count);
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }
