@@ -1,11 +1,15 @@
 package ftn.sbzn.PoEhelperbackend.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ftn.sbzn.PoEhelperbackend.dto.*;
 import ftn.sbzn.PoEhelperbackend.mapper.DataMapper;
 import ftn.sbzn.PoEhelperbackend.model.Keystone;
+import ftn.sbzn.PoEhelperbackend.model.ModList;
+import ftn.sbzn.PoEhelperbackend.model.Mods;
 import ftn.sbzn.PoEhelperbackend.model.SkillGem;
 import ftn.sbzn.PoEhelperbackend.service.KeystoneService;
+import ftn.sbzn.PoEhelperbackend.service.ModsService;
 import ftn.sbzn.PoEhelperbackend.service.SequenceGeneratorService;
 import ftn.sbzn.PoEhelperbackend.service.SkillGemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +19,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +45,9 @@ public class DataCollectController {
     KeystoneService keystoneService;
 
     DataMapper mapper;
+
+    @Autowired
+    private ModsService modsService;
 
 
     public DataCollectController() {
@@ -95,6 +106,25 @@ public class DataCollectController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/modsToDb")
+    public ResponseEntity<?> addModsToDb() {
+        try {
+//            String json = new String(Files.readAllBytes(Paths.get("src/main/resources/mods.json")));
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(new File("C:\\Users\\Bodzan\\Desktop\\sbnz-23\\PoE-helper-backend\\src\\main\\resources\\mods.json"));
+
+            Mods m = new Mods(2L, objectMapper.convertValue(jsonNode.get("quiver"), ModList.class),
+                    objectMapper.convertValue(jsonNode.get("amulet"), ModList.class),objectMapper.convertValue(jsonNode.get("ring"), ModList.class),
+                    objectMapper.convertValue(jsonNode.get("belt"), ModList.class),objectMapper.convertValue(jsonNode.get("shield"), ModList.class),
+                    objectMapper.convertValue(jsonNode.get("helmet"), ModList.class),objectMapper.convertValue(jsonNode.get("boots"), ModList.class),
+                    objectMapper.convertValue(jsonNode.get("gloves"), ModList.class),objectMapper.convertValue(jsonNode.get("body"), ModList.class));
+            modsService.saveMods(m);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping(value = "/activeGems")

@@ -30,28 +30,47 @@ public class TestController {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.newKieContainer(ks.newReleaseId("sbnz.projekat", "poe-helper-kjar", "0.0.1-SNAPSHOT"));
         KieScanner kScanner = ks.newKieScanner(kContainer);
-        kScanner.start(10_000);
+        kScanner.start(1000L);
         KieSession session = kContainer.newKieSession("ksession-rules");
 //        AgendaFilter filter = match -> {
 //            return match.getRule().getName().equals("Collect all tags");
 //        };
         Tag t1 = new Tag();
         t1.setName("Fire");
+        Tag t2 = new Tag();
+        t2.setName("Speed");
+        Tag t3 = new Tag();
+        t3.setName("Critical");
         Build b = new Build();
-//        Set<String> tags = new HashSet<>();
-//        b.setTags(tags);
-//        tags.add()
+
         Mods mods = modsService.getAllMods();
         ItemRecommendations ir = new ItemRecommendations();
         ir.setHelmetSelected(true);
+        ir.setBodyArmourSelected(true);
+        ir.setGlovesSelected(true);
+        ir.setBootsSelected(true);
+        ir.setRing1Selected(true);
+        ir.setAmuletSelected(true);
+        ir.setBeltSelected(true);
+        ir.setOffHandSelected(true);
 
         session.insert(t1);
+        session.insert(t2);
+        session.insert(t3);
         session.insert(b);
         session.insert(mods);
         session.insert(ir);
-//        session.getAgenda().getAgendaGroup("build").setFocus();
+        session.getAgenda().getAgendaGroup("build").setFocus();
+
+//        System.out.println(mods.getHelmetMods().findRandomSufWithTag("Fire", ir.helmetMods));
+//        ir.helmetMods.suffixes.add(mods.getHelmetMods().findRandomSufWithTag("Fire", ir.helmetMods));
+//        System.out.println(mods.getHelmetMods().findRandomSufWithTag("Fire", ir.helmetMods));
+//        ir.helmetMods.suffixes.add(mods.getHelmetMods().findRandomSufWithTag("Fire", ir.helmetMods));
+//        System.out.println(mods.getHelmetMods().findRandomSufWithTag("Fire", ir.helmetMods));
+//        ir.helmetMods.suffixes.add(mods.getHelmetMods().findRandomSufWithTag("Fire", ir.helmetMods));
+
         long count = session.fireAllRules();
 
-        return new ResponseEntity<>(count, HttpStatus.OK);
+        return new ResponseEntity<>(ir, HttpStatus.OK);
     }
 }

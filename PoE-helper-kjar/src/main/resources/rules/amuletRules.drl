@@ -7,13 +7,13 @@ import ftn.sbzn.PoEhelperbackend.model.Mod;
 import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 
-rule "fire pref helm"
+rule "fire pref amulet"
 agenda-group "build"
 when
     $mods: Mods()
-    $hmods: ModList() from $mods.helmetMods
+    $hmods: ModList() from $mods.amuletMods
 	Tag( name == "Fire" )
-	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
 then
 //    System.out.println("test");
@@ -21,13 +21,13 @@ then
     update($ir)
 end	
 
-rule "fire suf helm"
+rule "fire suf amulet"
 agenda-group "build"
 when
     $mods: Mods()
-    $hmods: ModList() from $mods.helmetMods
+    $hmods: ModList() from $mods.amuletMods
 	Tag( name == "Fire" )
-	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
 then
 //    System.out.println("test");

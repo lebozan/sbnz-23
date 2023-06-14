@@ -14,4 +14,8 @@ public class ModsService {
     public Mods getAllMods() {
         return modsRepository.findAll().get(0);
     }
+
+    public Mods saveMods(Mods m) {
+        return modsRepository.save(m);
+    }
 }

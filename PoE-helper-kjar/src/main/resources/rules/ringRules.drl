@@ -1,0 +1,66 @@
+import ftn.sbzn.PoEhelperbackend.model.Tag;
+import ftn.sbzn.PoEhelperbackend.model.Build;
+import java.util.Set;
+import ftn.sbzn.PoEhelperbackend.model.Mods;
+import ftn.sbzn.PoEhelperbackend.model.ModList;
+import ftn.sbzn.PoEhelperbackend.model.Mod;
+import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
+
+
+rule "fire pref ring1"
+agenda-group "build"
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.ringMods
+	Tag( name == "Fire" )
+	$ir: ItemRecommendations(ring1Selected == true, $currentMods: ring1Mods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    update($ir)
+end	
+
+rule "fire suf ring1"
+agenda-group "build"
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.ringMods
+	Tag( name == "Fire" )
+	$ir: ItemRecommendations(ring1Selected == true, $currentMods: ring1Mods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    update($ir);
+
+end
+
+rule "fire pref ring2"
+agenda-group "build"
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.ringMods
+	Tag( name == "Fire" )
+	$ir: ItemRecommendations(ring2Selected == true, $currentMods: ring2Mods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    update($ir)
+end
+
+rule "fire suf ring2"
+agenda-group "build"
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.ringMods
+	Tag( name == "Fire" )
+	$ir: ItemRecommendations(ring2Selected == true, $currentMods: ring2Mods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    update($ir);
+
+end
