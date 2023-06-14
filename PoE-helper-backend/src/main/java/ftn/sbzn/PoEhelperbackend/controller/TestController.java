@@ -38,10 +38,17 @@ public class TestController {
         Tag t1 = new Tag();
         t1.setName("Fire");
         Tag t2 = new Tag();
-        t2.setName("Speed");
+        t2.setName("Ailment");
         Tag t3 = new Tag();
         t3.setName("Critical");
+        Tag t4 = new Tag();
+        t3.setName("Defences");
+        Tag t5 = new Tag();
+        t3.setName("Resistance");
+
         Build b = new Build();
+        b.getExcludeTags().add("Attack");
+
 
         Mods mods = modsService.getAllMods();
         ItemRecommendations ir = new ItemRecommendations();
@@ -57,6 +64,9 @@ public class TestController {
         session.insert(t1);
         session.insert(t2);
         session.insert(t3);
+        session.insert(t4);
+        session.insert(t5);
+
         session.insert(b);
         session.insert(mods);
         session.insert(ir);

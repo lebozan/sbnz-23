@@ -9,29 +9,66 @@ import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 rule "fire pref helm"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.helmetMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr, $b));
     update($ir)
 end	
 
 rule "fire suf helm"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.helmetMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr, $b));
+    update($ir);
+
+end
+
+rule "Minion pref helm"
+agenda-group "build"
+salience 15
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.helmetMods
+	Tag( name == "Minion" )
+	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Minion", $curr, $b));
+    update($ir)
+end
+
+rule "Minion suf helm"
+agenda-group "build"
+salience 15
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.helmetMods
+	Tag( name == "Minion" )
+	$ir: ItemRecommendations(helmetSelected == true, $currentMods: helmetMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Minion", $curr, $b));
     update($ir);
 
 end

@@ -9,58 +9,100 @@ import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 rule "fire pref ring1"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.ringMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(ring1Selected == true, $currentMods: ring1Mods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr, $b));
     update($ir)
 end	
 
 rule "fire suf ring1"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.ringMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(ring1Selected == true, $currentMods: ring1Mods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr, $b));
     update($ir);
 
 end
 
-rule "fire pref ring2"
+rule "Elemental pref ring2"
 agenda-group "build"
+salience 15
 when
     $mods: Mods()
     $hmods: ModList() from $mods.ringMods
-	Tag( name == "Fire" )
+	Tag( name == "Elemental" )
 	$ir: ItemRecommendations(ring2Selected == true, $currentMods: ring2Mods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Elemental", $curr, $b));
     update($ir)
 end
 
-rule "fire suf ring2"
+rule "Attributes suf ring2"
 agenda-group "build"
+salience 15
 when
     $mods: Mods()
     $hmods: ModList() from $mods.ringMods
-	Tag( name == "Fire" )
+	Tag( name == "Attributes" )
 	$ir: ItemRecommendations(ring2Selected == true, $currentMods: ring2Mods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Attributes", $curr, $b));
+    update($ir);
+
+end
+
+rule "Critical suf ring2"
+agenda-group "build"
+salience 15
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.ringMods
+	Tag( name == "Critical" )
+	$ir: ItemRecommendations(ring2Selected == true, $currentMods: ring2Mods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Critical", $curr, $b));
+    update($ir);
+
+end
+
+rule "Curse suf ring2"
+agenda-group "build"
+salience 15
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.ringMods
+	Tag( name == "Curse" )
+	$ir: ItemRecommendations(ring2Selected == true, $currentMods: ring2Mods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Curse", $curr, $b));
     update($ir);
 
 end

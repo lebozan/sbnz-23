@@ -15,21 +15,26 @@ public class ModList {
 
     public List<Mod> suffixes;
 
-    public Mod findRandomPrefWithTag(String tag, ModList current) {
-        Collections.shuffle(suffixes);
+    public Mod findRandomPrefWithTag(String tag, ModList current, Build b) {
+//        Collections.shuffle(prefixes);
         for (Mod m: prefixes) {
-            if (m.tags.contains(tag) && !current.prefixes.contains(m)) {
-                return m;
+            if (m.tags.contains(tag) && !current.prefixes.contains(m) && !m.tags.containsAll(b.getExcludeTags())) {
+                if (!m.getName().startsWith("+(") && !m.getName().startsWith("(")) {
+                    return m;
+                }
+
             }
         }
         return null;
     }
 
-    public Mod findRandomSufWithTag(String tag, ModList current) {
-        Collections.shuffle(suffixes);
+    public Mod findRandomSufWithTag(String tag, ModList current, Build b) {
+//        Collections.shuffle(suffixes);
         for (Mod m: suffixes) {
-            if (m.tags.contains(tag) && !current.suffixes.contains(m)) {
-                return m;
+            if (m.tags.contains(tag) && !current.suffixes.contains(m) && !m.tags.containsAll(b.getExcludeTags())) {
+                if (!m.getName().startsWith("+(") && !m.getName().startsWith("(")) {
+                    return m;
+                }
             }
         }
         return null;

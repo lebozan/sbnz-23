@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
+import {AllDataService} from "../../service/all-data.service";
 
 @Component({
   selector: 'app-second-entry',
@@ -12,7 +13,7 @@ export class SecondEntryComponent implements OnInit {
   displayedColumns = ['name'];
   tableData: any;
 
-  constructor() {
+  constructor(private dateService: AllDataService) {
     this.selectedEquipment = [];
     this.isSelected = false;
     this.tableData = new MatTableDataSource(this.selectedEquipment);
@@ -32,6 +33,28 @@ export class SecondEntryComponent implements OnInit {
     }
 
     console.log(this.selectedEquipment);
+  }
+
+  sendSecondEntryData(): void {
+    let buildString = localStorage.getItem("build")
+    if (buildString !== null) {
+      let build = JSON.parse(buildString)
+      let data = {
+        "buildId": build.id,
+        "selectedEquipment": this.selectedEquipment
+      }
+
+      this.dateService.sendSecondEntry(data).subscribe({
+        next: (response) => {
+          console.log("proso")
+          console.log(response);
+        },
+        error: (error) => {
+
+        }
+      })
+    }
+
   }
 
 }

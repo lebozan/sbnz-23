@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit {
     this.activeGems = [];
     this.supportGems = [];
     this.keystones = [];
-    this.selectedTab = 1;
+    this.selectedTab = 0;
   }
 
   ngOnInit(): void {

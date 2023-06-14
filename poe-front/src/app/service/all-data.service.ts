@@ -27,7 +27,7 @@ export class AllDataService {
   }
 
   sendSecondEntry(entryData: object): Observable<any> {
-    return this.http.post('api/api/input/second', entryData);
+    return this.http.post('api/api/input/secondEntry', entryData);
   }
 
 }

@@ -9,29 +9,117 @@ import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 rule "fire pref gloves"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.glovesMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr, $b));
     update($ir)
 end	
 
 rule "fire suf gloves"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.glovesMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr, $b));
+    update($ir);
+
+end
+
+
+rule "cold suf gloves"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.glovesMods
+	Tag( name == "Cold" )
+	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Cold", $curr, $b));
+    update($ir);
+
+end
+
+rule "speed pref gloves"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.glovesMods
+	Tag( name == "Speed" )
+	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr, $b));
+    update($ir)
+end
+
+rule "speed suf gloves"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.glovesMods
+	Tag( name == "Speed" )
+	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Speed", $curr, $b));
+    update($ir);
+
+end
+
+rule "Ailment pref gloves"
+agenda-group "build"
+salience 20
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.glovesMods
+	Tag( name == "Ailment" )
+	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Ailment", $curr, $b));
+    update($ir)
+end
+
+rule "Ailment suf gloves"
+agenda-group "build"
+salience 20
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.glovesMods
+	Tag( name == "Ailment" )
+	$ir: ItemRecommendations(glovesSelected == true, $currentMods: glovesMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Ailment", $curr, $b));
     update($ir);
 
 end

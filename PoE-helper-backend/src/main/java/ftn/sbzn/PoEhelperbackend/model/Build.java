@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +28,10 @@ public class Build {
     private String damageType;
     private Set<String> tags;
 
+    private List<String> excludeTags;
+
     public Build() {
         this.mainSkills = new ArrayList<>();
+        this.excludeTags = new ArrayList<>();
     }
 }

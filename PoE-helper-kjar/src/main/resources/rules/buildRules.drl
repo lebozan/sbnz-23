@@ -4,7 +4,7 @@ import java.util.Set;
 
 rule "Collect all tags"
 salience 1
-agenda-group "build"
+agenda-group "setup"
 when
    $tags: Set()
         from accumulate( Tag( $n: name),
@@ -18,7 +18,7 @@ end
 
 rule "Bleed damage type"
 salience 10
-agenda-group "build"
+agenda-group "setup"
 when
     not (Tag( name == "Elemental" ))
     not (Tag( name == "Chaos"))
@@ -32,7 +32,7 @@ end
 
 rule "Poison damage type"
 salience 10
-agenda-group "build"
+agenda-group "setup"
 when
     Tag( name == "Chaos")
     Tag(name == "Duration")
@@ -44,7 +44,7 @@ end
 
 rule "Fire damage type"
 salience 10
-agenda-group "build"
+agenda-group "setup"
 when
     Tag(name == "Fire")
     $b: Build()
@@ -56,7 +56,7 @@ end
 
 rule "Cold damage type"
 salience 10
-agenda-group "build"
+agenda-group "setup"
 when
     Tag( name == "Cold")
     $b: Build()
@@ -68,7 +68,7 @@ end
 
 rule "Lightning damage type"
 salience 10
-agenda-group "build"
+agenda-group "setup"
 when
     Tag( name == "Lightning")
     $b: Build()
@@ -79,7 +79,7 @@ end
 
 rule "Physical damage type"
 salience 20
-agenda-group "build"
+agenda-group "setup"
 when
     Tag( name == "Physical")
     $b: Build()
@@ -91,10 +91,36 @@ end
 
 rule "Ailment tag"
 salience 10
-agenda-group "build"
+agenda-group "setup"
 when
     Tag(name == "Physical" || name == "Cold" || name == "Fire" || name == "Chaos")
     Tag(name == "Duration")
 then
     insert(new Tag("Ailment"));
+end
+
+
+rule "Exclude attack"
+salience 10
+agenda-group "setup"
+when
+    Tag(name == "Spell")
+    not Tag (name == "Attack")
+    $b: Build()
+then
+    $b.getExcludeTags().add("Attack");
+    update($b);
+end
+
+rule "Exclude spell"
+salience 10
+agenda-group "setup"
+when
+    Tag(name == "Attack")
+    not Tag (name == "Spell")
+    $b: Build()
+then
+    $b.getExcludeTags().add("Spell");
+    $b.getExcludeTags().add("Caster");
+    update($b);
 end

@@ -7,31 +7,84 @@ import ftn.sbzn.PoEhelperbackend.model.Mod;
 import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 
-rule "fire pref shield"
+rule "Elemental pref shield"
 agenda-group "build"
+salience 15
 when
     $mods: Mods()
     $hmods: ModList() from $mods.shieldMods
-	Tag( name == "Fire" )
+	Tag( name == "Elemental" )
 	$ir: ItemRecommendations(offHandSelected == true, $currentMods: shieldMods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Elemental", $curr, $b));
     update($ir)
-end	
+end
+
+rule "Elemental suf shield"
+agenda-group "build"
+salience 15
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.shieldMods
+	Tag( name == "Elemental" )
+	$ir: ItemRecommendations(offHandSelected == true, $currentMods: shieldMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Elemental", $curr, $b));
+    update($ir)
+end
+
+rule "Critical suf shield"
+agenda-group "build"
+salience 15
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.shieldMods
+	Tag( name == "Critical" )
+	$ir: ItemRecommendations(offHandSelected == true, $currentMods: shieldMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Critical", $curr, $b));
+    update($ir);
+
+end
+
+rule "Defences pref shield"
+agenda-group "build"
+salience 20
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.shieldMods
+	Tag( name == "Defences" )
+	$ir: ItemRecommendations(offHandSelected == true, $currentMods: shieldMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Defences", $curr, $b));
+    update($ir)
+end
 
 rule "fire suf shield"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.shieldMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(offHandSelected == true, $currentMods: shieldMods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr, $b));
     update($ir);
 
 end

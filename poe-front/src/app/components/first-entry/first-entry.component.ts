@@ -32,10 +32,10 @@ export class FirstEntryComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.form.value.selectedActiveGems);
-    console.log(this.form.value.selectedSupportGems);
-    console.log(this.form.value.selectedKeystones);
-    var firstEntryData = {
+    // console.log(this.form.value.selectedActiveGems);
+    // console.log(this.form.value.selectedSupportGems);
+    // console.log(this.form.value.selectedKeystones);
+    let firstEntryData = {
       skillSetup: [],
       keystones: this.form.value.selectedKeystones,
       weaponType: this.form.value.selectedWeapon
@@ -44,10 +44,11 @@ export class FirstEntryComponent implements OnInit {
     firstEntryData.skillSetup.push(this.form.value.selectedActiveGems);
     firstEntryData.skillSetup.push.apply(firstEntryData.skillSetup, this.form.value.selectedSupportGems);
 
-    // console.log(firstEntryData);
+    console.log(firstEntryData);
     this.dateService.sendFirstEntry(firstEntryData).subscribe(
       result => {
-        console.log(result);
+        console.log("build: ", result);
+        localStorage.setItem("build", JSON.stringify(result))
         this.changeTab.emit(true);
       }, error => {
         console.log(error);

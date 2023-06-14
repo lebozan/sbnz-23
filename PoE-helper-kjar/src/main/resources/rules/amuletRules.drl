@@ -9,29 +9,167 @@ import ftn.sbzn.PoEhelperbackend.model.ItemRecommendations;
 
 rule "fire pref amulet"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.amuletMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr, $b));
     update($ir)
 end	
 
 rule "fire suf amulet"
 agenda-group "build"
+salience 10
 when
     $mods: Mods()
     $hmods: ModList() from $mods.amuletMods
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr, $b));
     update($ir);
 
 end
+
+rule "cold pref amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Cold" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Cold", $curr, $b));
+    update($ir)
+end
+
+rule "cold suf amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Cold" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Cold", $curr, $b));
+    update($ir);
+
+end
+
+rule "Lightning pref amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Lightning" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Lightning", $curr, $b));
+    update($ir)
+end
+
+rule "Lightning suf amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Lightning" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Lightning", $curr, $b));
+    update($ir);
+
+end
+
+rule "Ailment pref amulet"
+agenda-group "build"
+salience 20
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Ailment" )
+	Tag( name == "Fire" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Ailment", $curr, $b));
+    update($ir)
+end
+
+rule "Ailment suf amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Ailment" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Ailment", $curr, $b));
+    update($ir);
+
+end
+
+rule "Physical pref amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Physical" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Physical", $curr, $b));
+    update($ir)
+end
+
+rule "Physical suf amulet"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.amuletMods
+	Tag( name == "Physical" )
+	$ir: ItemRecommendations(amuletSelected == true, $currentMods: amuletMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Physical", $curr, $b));
+    update($ir);
+
+end
+

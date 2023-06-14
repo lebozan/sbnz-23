@@ -15,9 +15,10 @@ when
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
 	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr));
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Fire", $curr, $b));
     update($ir)
 end	
 
@@ -29,9 +30,93 @@ when
 	Tag( name == "Fire" )
 	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
 	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
 then
 //    System.out.println("test");
-    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr));
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Fire", $curr, $b));
+    update($ir);
+
+end
+
+rule "Life pref belt"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.beltMods
+	Tag( name == "Life" )
+	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Life", $curr, $b));
+    update($ir)
+end
+
+rule "Life suf belt"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.beltMods
+	Tag( name == "Life" )
+	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Life", $curr, $b));
+    update($ir);
+
+end
+
+rule "Projectile pref belt"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.beltMods
+	Tag( name == "Projectile" )
+	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
+	$curr: ModList(prefixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.prefixes.add($hmods.findRandomPrefWithTag("Projectile", $curr, $b));
+    update($ir)
+end
+
+rule "Projectile suf belt"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.beltMods
+	Tag( name == "Projectile" )
+	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Projectile", $curr, $b));
+    update($ir);
+
+end
+
+rule "Resistance suf belt"
+agenda-group "build"
+salience 10
+when
+    $mods: Mods()
+    $hmods: ModList() from $mods.beltMods
+	Tag( name == "Resistance" )
+	$ir: ItemRecommendations(beltSelected == true, $currentMods: beltMods)
+	$curr: ModList(suffixes.size() < 3) from $currentMods
+	$b: Build()
+then
+//    System.out.println("test");
+    $curr.suffixes.add($hmods.findRandomSufWithTag("Resistance", $curr, $b));
     update($ir);
 
 end

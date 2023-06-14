@@ -66,7 +66,7 @@ public class UserInputController {
             }
             kieSession.insert(newBuild);
 
-            kieSession.getAgenda().getAgendaGroup("collect").setFocus();
+            kieSession.getAgenda().getAgendaGroup("setup").setFocus();
             kieSession.fireAllRules();
 
             System.out.println(kieSession.getFactCount());
@@ -123,12 +123,17 @@ public class UserInputController {
         if (build.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         kieSession.insert(itemRecommendations);
         Build b = build.get();
         kieSession.insert(b);
+
         Mods mods = modsService.getAllMods();
         kieSession.insert(mods);
-        kieSession.fireAllRules();
+
+        kieSession.getAgenda().getAgendaGroup("build").setFocus();
+
+        int count = kieSession.fireAllRules();
         return new ResponseEntity<>(itemRecommendations, HttpStatus.OK);
     }
 
