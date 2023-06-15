@@ -5,12 +5,17 @@
 <mat-tab-group [selectedIndex]="selectedTab" class="tabs">
   <mat-tab label="First User Entry">
     <div class="firstEntryContent">
-      <app-first-entry [activeGemsList]="activeGems" [supportGemsList]="supportGems" [keystonesList]="keystones" (changeTab)="firstEntrySubmited($event)"></app-first-entry>
+      <app-first-entry [activeGemsList]="activeGems" [supportGemsList]="supportGems" [keystonesList]="keystones" (changeTab)="changeTab($event)"></app-first-entry>
     </div>
   </mat-tab>
   <mat-tab label="Second User Entry">
     <div class="secondEntryContent">
-      <app-second-entry></app-second-entry>
+      <app-second-entry (changeTab)="changeTab($event)"></app-second-entry>
+    </div>
+  </mat-tab>
+  <mat-tab label="Item recommendations">
+    <div class="finalRecommendations">
+      <app-item-recommend></app-item-recommend>
     </div>
   </mat-tab>
 </mat-tab-group>

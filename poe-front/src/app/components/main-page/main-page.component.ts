@@ -60,9 +60,9 @@ export class MainPageComponent implements OnInit {
     );
   }
 
-  firstEntrySubmited(changeTab: boolean): void {
-    if (changeTab) {
-      this.selectedTab = 1;
+  changeTab(changeTab: number): void {
+    if (changeTab > 0) {
+      this.selectedTab = changeTab;
     }
   }
 }

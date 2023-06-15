@@ -18,13 +18,15 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
+import { ItemRecommendComponent } from './components/item-recommend/item-recommend.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     FirstEntryComponent,
-    SecondEntryComponent
+    SecondEntryComponent,
+    ItemRecommendComponent
   ],
   imports: [
     BrowserModule,

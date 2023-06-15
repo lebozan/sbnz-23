@@ -13,7 +13,7 @@ export class FirstEntryComponent implements OnInit {
   @Input() activeGemsList: Array<SkillGem> | undefined;
   @Input() supportGemsList: Array<SkillGem> | undefined;
   @Input() keystonesList: Array<Keystone> | undefined;
-  @Output() changeTab = new EventEmitter<boolean>();
+  @Output() changeTab = new EventEmitter<number>();
   form: FormGroup;
 
   constructor(
@@ -45,15 +45,16 @@ export class FirstEntryComponent implements OnInit {
     firstEntryData.skillSetup.push.apply(firstEntryData.skillSetup, this.form.value.selectedSupportGems);
 
     console.log(firstEntryData);
-    this.dateService.sendFirstEntry(firstEntryData).subscribe(
-      result => {
+    this.dateService.sendFirstEntry(firstEntryData).subscribe({
+      next: (result) => {
         console.log("build: ", result);
         localStorage.setItem("build", JSON.stringify(result))
-        this.changeTab.emit(true);
-      }, error => {
-        console.log(error);
+        this.changeTab.emit(1);
+      },
+      error: err => {
+        console.log(err);
       }
-   );
+    });
   }
 
 }

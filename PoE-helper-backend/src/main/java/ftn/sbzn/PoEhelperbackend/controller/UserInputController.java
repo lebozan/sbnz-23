@@ -130,6 +130,12 @@ public class UserInputController {
 
         Mods mods = modsService.getAllMods();
         kieSession.insert(mods);
+        for (String t: b.getTags()) {
+            kieSession.insert(new Tag(t));
+        }
+        for (String t: b.getExcludeTags()) {
+            kieSession.insert(new Tag(t));
+        }
 
         kieSession.getAgenda().getAgendaGroup("build").setFocus();
 

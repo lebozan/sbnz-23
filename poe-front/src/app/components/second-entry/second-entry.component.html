@@ -7,10 +7,6 @@
   <!--  <mat-button-toggle class="gloves-toggle" value="bold">Main Hand</mat-button-toggle>-->
 </ng-container>
 
-<div *ngFor="let item in selectedEquipment">
-  <button mat-raised-button > {{item}}</button>
-</div>
-
 <map name="image-map">
   <area target="" alt="main-hand" title="main-hand" coords="223,411,42,50" href="javascript:void(0)" shape="rect" (click)="selected('mainhand')">
   <area target="" alt="gloves" title="gloves" coords="178,447,351,618" href="javascript:void(0)" shape="rect" (click)="selected('gloves')">

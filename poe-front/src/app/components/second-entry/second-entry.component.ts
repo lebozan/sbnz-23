@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {AllDataService} from "../../service/all-data.service";
 
@@ -8,6 +8,8 @@ import {AllDataService} from "../../service/all-data.service";
   styleUrls: ['./second-entry.component.scss']
 })
 export class SecondEntryComponent implements OnInit {
+
+  @Output() changeTab = new EventEmitter<number>();
   selectedEquipment: Array<string>;
   isSelected: boolean;
   displayedColumns = ['name'];
@@ -46,8 +48,10 @@ export class SecondEntryComponent implements OnInit {
 
       this.dateService.sendSecondEntry(data).subscribe({
         next: (response) => {
-          console.log("proso")
+          // console.log("proso")
           console.log(response);
+          localStorage.setItem("items", JSON.stringify( response))
+          this.changeTab.emit(2);
         },
         error: (error) => {
 
